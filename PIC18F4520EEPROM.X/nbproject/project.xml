@@ -6,7 +6,7 @@
             <name>PIC18F4520EEPROM</name>
             <creation-uuid>6dd9476f-c69f-41f7-b785-c196183c0f40</creation-uuid>
             <make-project-type>0</make-project-type>
-            <c-extensions/>
+            <c-extensions>c</c-extensions>
             <cpp-extensions/>
             <header-extensions/>
             <asminc-extensions/>
