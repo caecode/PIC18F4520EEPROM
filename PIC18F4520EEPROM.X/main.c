@@ -105,16 +105,16 @@ void main(void) {
     //Disable interrupts
     INTCONbits.GIE=0;
     
+    //Write to eeprom location
     for(i=0;i<16;i++){
         
         //EEPROM ADDRESS
         EEADR=i;
     
-        //EEPROM Value
+        //EEPROM data to write
         EEDATA=buffer[i];
         
         //Required Sequence
-    
         EECON2=0x55;
         EECON2=0xAA;
     
@@ -142,15 +142,16 @@ void main(void) {
     EECON1bits.CFGS=0;
     
    
+    //Read the data stored in EEPROM
     for(i=0;i<16;i++){
         
         //Point to EEPROM address to read
         EEADR=i;
         
-        //Display the value on PORT D (LEDs)
+        //Read data and display the value on PORT D (LEDs)
         PORTD=EEDATA;
         
-        //EEPROM Read
+        //Enable EEPROM Read
         EECON1bits.RD=1;
         
         //Add a delay
