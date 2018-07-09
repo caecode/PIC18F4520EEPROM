@@ -75,7 +75,87 @@
 
 void main(void) {
     
+    //Set output pins for LEDs
+    TRISD=0x00;
     
+    LATD=0x00;
+    
+    //load up a buffer with data
+    char buffer[16]={0x00};
+    
+    char i=0;
+    
+    for(i=0;i<16;i++){
+        
+        buffer[i]=i;
+        
+    }
+    
+    //WRITE EEPROM DATA
+   
+    //Point to data memory
+    EECON1bits.EEPGD=0;
+    
+    //Access EEPROM
+    EECON1bits.CFGS=0;
+    
+    //Enable writes
+    EECON1bits.WREN=1;
+    
+    //Disable interrupts
+    INTCONbits.GIE=0;
+    
+    for(i=0;i<16;i++){
+        
+        //EEPROM ADDRESS
+        EEADR=i;
+    
+        //EEPROM Value
+        EEDATA=buffer[i];
+        
+        //Required Sequence
+    
+        EECON2=0x55;
+        EECON2=0xAA;
+    
+        //Set WR bit to begin write for each byte
+        EECON1bits.WR=1;
+        
+        //A delay is required
+        __delay_ms(5);
+    } 
+    
+    
+    //Enable Interrupts
+    INTCONbits.GIE=1;
+    
+    //Disable writes
+    EECON1bits.WREN=0;
+    
+ 
+    //READ EEPROM DATA
+    
+    //Point to Data memory
+    EECON1bits.EEPGD=0;
+    
+    //Access EEPROM
+    EECON1bits.CFGS=0;
+    
+   
+    for(i=0;i<16;i++){
+        
+        //Point to EEPROM address to read
+        EEADR=i;
+        
+        //Display the value on PORT D (LEDs)
+        PORTD=EEDATA;
+        
+        //EEPROM Read
+        EECON1bits.RD=1;
+        
+        //Add a delay
+        __delay_ms(100);
+    }
     
     while(1);
     
