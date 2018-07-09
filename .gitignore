@@ -21,3 +21,4 @@ funclist
 nbproject/Makefile-*
 disassembly/
 *.map
+/PIC18F4520EEPROM.X/nbproject/private/
